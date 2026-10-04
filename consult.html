@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>免费定位材料卡点｜港硕申请助手</title>
+<meta name="description" content="免费定位成绩单、官方条款冲突或推荐报告卡点，复制下一步行动提示；仍需人工核对时，可以另行整理咨询草稿。">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="site-header">
+<div class="wrap header-inner"><a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">港</span>港硕申请助手</a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button><nav class="site-nav" id="site-nav" aria-label="主导航"><a href="services.html">服务与范围</a><a href="sample.html">交付样例</a><a href="guide.html">怎样开始</a><a href="consult.html#quick-check" class="nav-cta" aria-current="page">免费定位卡点</a></nav></div>
+</header>
+<main id="main">
+<div class="wrap">
+<nav class="breadcrumb" aria-label="面包屑"><a href="index.html">首页</a><span aria-hidden="true">／</span><span>免费定位卡点</span></nav>
+<header class="page-intro fade-in"><p class="eyebrow">先完成一个具体任务</p><h1>材料卡住了，<br>先看清下一步。</h1><p class="lead">选择问题与当前状态，免费取得行动提示。能自己推进的先做；需要逐项对应项目要求时，再考虑人工核对。</p></header>
+<div class="page-body">
+<section class="quick-check" id="quick-check" aria-labelledby="quick-check-title">
+<div class="check-intro"><h2 id="quick-check-title">免费定位材料卡点</h2><p>不用登录。选出两项，看看先做什么。</p></div>
+<form id="quick-check-form" hidden>
+<div class="check-fields">
+<div class="check-field"><label for="check-issue">1. 哪一类问题卡住了？</label><select id="check-issue" name="issue" required><option value="">请选择材料问题</option><option value="transcript">正式文件：成绩单尚缺或待核</option><option value="terms">官方条款说法不同</option><option value="report">推荐报告收件未确认</option></select></div>
+<div class="check-field"><label for="check-state">2. 目前进到哪一步？</label><select id="check-state" name="state" required disabled><option value="">先选择材料问题</option></select></div>
+</div>
+<div class="actions"><button class="button" type="submit">查看下一步 <span class="arrow" aria-hidden="true">↗</span></button></div>
+<p class="check-status" id="check-status" role="status" aria-live="polite"></p>
+</form>
+<noscript><p class="check-noscript">此处需要启用 JavaScript 才能按状态生成提示。你可以先看<a class="text-link" href="sample.html">材料卡点样例 ↗</a>，或在下方手动编辑咨询草稿。</p></noscript>
+<article class="check-result" id="check-result" aria-labelledby="check-result-title" hidden>
+<h3 id="check-result-title">你的下一步</h3><p class="check-selection" id="check-selection"></p>
+<dl class="action-list"><div><dt>先做什么</dt><dd id="check-first"></dd></div><div><dt>找谁推进</dt><dd id="check-who"></dd></div><div><dt>完成依据</dt><dd id="check-evidence"></dd></div><div><dt>何时值得人工核对</dt><dd id="check-manual"></dd></div></dl>
+<div class="actions"><button class="button secondary" id="copy-action" type="button">复制这份行动提示</button><a class="text-link" href="#consultation">整理咨询草稿 <span aria-hidden="true">↗</span></a></div>
+<p class="copy-status" id="action-copy-status" role="status" aria-live="polite"></p>
+<textarea class="action-copy-fallback" id="action-copy-fallback" readonly hidden aria-label="完整行动提示，供手动复制" aria-describedby="action-copy-status"></textarea>
+</article>
+<p class="check-disclosure">这是基于你自述状态的准备建议，不代表项目要求已经核实、材料已合格或学校已收到报告。选择与结果只在当前页面使用，不会发送或保存。</p>
+</section>
+<section class="consultation" id="consultation" aria-labelledby="consultation-title">
+<h2 class="consultation-title" id="consultation-title">仍需人工核对？先整理问题。</h2>
+<div class="contact-layout">
+<div class="contact-note"><span class="tag warm">联系方式尚未接入</span><p>现在可以编辑并复制咨询草稿，供你自行粘贴使用。</p><p>页面不会发送信息、提交预约或保存你的草稿。刷新或关闭前，请自行保留需要的文字。</p>
+<ul class="contact-hints"><li><span>项目</span>已有的 1–3 个候选项目</li><li><span>年度</span>拟入学年度</li><li><span>卡点</span>最想解决的材料问题</li><li><span>状态</span>已有、尚缺或未确认</li></ul>
+</div>
+<div class="draft-panel">
+<label for="consult-draft">你的咨询草稿，可以直接修改</label>
+<textarea id="consult-draft" aria-describedby="draft-disclosure copy-status" spellcheck="false">候选项目（1–3个）：【填写】
+拟入学年度：【填写】
+目前最卡的材料问题：【填写】
+已有材料及待确认事项：【填写】
+
+我想了解材料核对试点，以及实际费用、交付日与一次反馈复核时间。</textarea>
+<div class="actions"><button class="button" id="copy-draft" type="button">复制咨询草稿 <span class="arrow" aria-hidden="true">↗</span></button><span class="small" id="draft-disclosure">仅复制，不发送</span></div>
+<p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+</div>
+</div>
+</section>
+<div class="page-next"><a class="text-link" href="sample.html">先看交付样例 <span aria-hidden="true">↗</span></a><a class="text-link" href="services.html">查看价格与范围 <span aria-hidden="true">↗</span></a></div>
+</div>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap footer-inner"><p class="footer-brand">港硕申请助手</p><p class="footer-state">免费卡点定位 · 人工试点筹备 · V5 · 2026-10-04<br>样例全部虚构 · 学校资料沿用 2026-10-03</p></div></footer>
+</body>
+</html>
