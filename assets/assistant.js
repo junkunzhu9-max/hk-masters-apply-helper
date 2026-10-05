@@ -11,7 +11,13 @@
         </header>
         <div class="ai-content">
           <p class="ai-context" id="ai-context" hidden></p>
-          <p class="ai-note" id="ai-note">回答限材料推进与本站说明，具体学校要求仍需官方确认。点击发送后，问题、最近对话与所选卡点会交给 DeepSeek 处理；本站不保存聊天记录，刷新后清空。请勿填写证件或完整申请材料。</p>
+          <p class="ai-note" id="ai-note">点击发送后，问题、最近对话与所选卡点会交给 DeepSeek 处理。选择项目核对时，会读取该项目官网，并将相关条款交给 DeepSeek 整理；答案附来源，未明确的要求保留待确认。本站不保存聊天记录，刷新后清空。请勿填写证件或完整申请材料。</p>
+          <label class="ai-target-label" for="ai-target">项目核对（可选）</label>
+          <select class="ai-target" id="ai-target">
+            <option value="">材料准备问答</option>
+            <option value="cuhk-gastroenterology-2027">港中大 · 胃肠病学硕士 · 2027</option>
+          </select>
+          <p class="ai-target-note">选择项目后，可问推荐信数量、推荐人要求和提交方式。</p>
           <div class="ai-prompts" aria-label="试着这样问">
             <button type="button">成绩单还没拿到，先做什么？</button>
             <button type="button">推荐人说已提交，怎么确认收件？</button>
@@ -38,6 +44,8 @@
   const contextLabel = document.getElementById('ai-context');
   const assistant = launcher.closest('.ai-assistant');
   const closeButton = document.querySelector('.ai-close');
+  const target = document.getElementById('ai-target');
+  const officialURLs = new Set(['https://www.idd.cuhk.edu.hk/mscgi/', 'https://www.idd.cuhk.edu.hk/mscgi-application/', 'https://www.gs.cuhk.edu.hk/admissions/documents-required']);
   const mobile = matchMedia('(max-width:760px)');
   const background = new Map();
   let enabled = false;
@@ -118,7 +126,7 @@
       checked = false;
     }
   };
-  const addMessage = (role, text) => {
+  const addMessage = (role, text, sources = []) => {
     const item = document.createElement('p');
     item.className = 'ai-message ' + (role === 'user' ? 'is-user' : 'is-assistant');
     const label = document.createElement('span');
@@ -127,6 +135,28 @@
     const body = document.createElement('span');
     body.textContent = text;
     item.append(label, body);
+    if (Array.isArray(sources) && sources.length) {
+      const references = document.createElement('span');
+      references.className = 'ai-sources';
+      const heading = document.createElement('span');
+      heading.textContent = '本次读取的官方资料';
+      references.append(heading);
+      sources.slice(0, 3).forEach(source => {
+        if (!officialURLs.has(source?.url) || typeof source.title !== 'string') return;
+        const date = new Date(source.retrievedAt);
+        if (!Number.isFinite(date.getTime())) return;
+        const link = document.createElement('a');
+        link.href = source.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = source.title;
+        const stamp = document.createElement('span');
+        stamp.textContent = (source.applicableYear === 2027 ? '页面明确 2027 入学年度' : '通用条款，未单列入学年度') + ' · 读取于 ' +
+          date.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+        references.append(link, stamp);
+      });
+      if (references.children.length > 1) item.append(references);
+    }
     log.append(item);
     item.scrollIntoView({ block: 'nearest' });
     content.scrollTop = content.scrollHeight;
@@ -152,7 +182,7 @@
       event.preventDefault();
       setOpen(false);
     } else if (event.key === 'Tab' && mobile.matches) {
-      const controls = [...panel.querySelectorAll('button:not([disabled]), textarea:not([disabled])')];
+      const controls = [...panel.querySelectorAll('button:not([disabled]), textarea:not([disabled]), select:not([disabled]), a[href]')];
       const first = controls[0];
       const last = controls[controls.length - 1];
       if (event.shiftKey && document.activeElement === first) {
@@ -172,6 +202,10 @@
   });
   document.getElementById('check-issue')?.addEventListener('change', refreshContext);
   document.getElementById('check-state')?.addEventListener('change', refreshContext);
+  target.addEventListener('change', () => {
+    messages.length = 0;
+    if (enabled) status.textContent = target.value ? '已选项目 · 发送后核对官方材料要求' : '已切换为材料准备问答';
+  });
   input.addEventListener('keydown', event => {
     if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
       event.preventDefault();
@@ -185,28 +219,32 @@
     busy = true;
     send.disabled = true;
     input.disabled = true;
-    addMessage('user', question);
+    target.disabled = true;
+    addMessage('user', target.value ? '项目：香港中文大学胃肠病学理学硕士 · 2027 入学\n\n' + question : question);
     input.value = '';
-    status.textContent = '正在整理下一步…';
+    status.textContent = target.value ? '正在读取官网并整理要求…' : '正在整理下一步…';
     try {
       const response = await fetch('/api/chat', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: requestMessages(question), context: currentContext() }),
+        body: JSON.stringify({ messages: requestMessages(question), context: currentContext(), target: target.value }),
         signal: AbortSignal.timeout(45000)
       });
       const data = await response.json();
       if (!response.ok) {
         const problem = new Error('unavailable');
         problem.status = response.status;
+        problem.code = data.code;
         throw problem;
       }
       if (typeof data.reply !== 'string' || !data.reply.trim()) throw new Error('unavailable');
-      addMessage('assistant', data.reply);
+      if (target.value && (!Array.isArray(data.sources) || !data.sources.some(source => officialURLs.has(source?.url)))) throw new Error('unavailable');
+      addMessage('assistant', data.reply, target.value ? data.sources : []);
       messages.push({ role: 'user', content: question }, { role: 'assistant', content: data.reply });
       if (messages.length > 6) messages.splice(0, messages.length - 6);
-      status.textContent = '可以继续问 · 具体学校要求请核对官方资料';
+      status.textContent = target.value ? '已附官方来源 · 未明确的要求仍需项目确认' : '可以继续问 · 具体学校要求请核对官方资料';
     } catch (problem) {
-      const message = problem.status === 429 ? '提问较频繁，请稍后重试。你的问题已保留在输入框。' :
+      const message = problem.code === 'official_unavailable' ? '这次没有取得完整的官方资料，请稍后重试。你的问题已保留；暂时不能据此确认项目要求。' :
+        problem.status === 429 ? '提问较频繁，请稍后重试。你的问题已保留在输入框。' :
         problem.status === 504 || problem.name === 'TimeoutError' ? '这次等待回答超时，请稍后重试。你的问题已保留在输入框。' :
         '这次没有取得回答。你可以重新发送，或先使用页面上的免费材料卡点工具。';
       addMessage('assistant', message);
@@ -215,6 +253,7 @@
     } finally {
       busy = false;
       input.disabled = false;
+      target.disabled = false;
       send.disabled = !enabled;
       if (!panel.hidden) input.focus();
     }
