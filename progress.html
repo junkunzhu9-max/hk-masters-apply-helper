@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>个人清单｜港中大胃肠病学硕士 2027｜港硕申请助手</title>
+<meta name="description" content="按申请背景建立港中大胃肠病学硕士2027个人材料清单，在当前浏览器保存本人记录的准备、提交与申请收件状态。">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/assistant.css">
+<link rel="stylesheet" href="assets/progress.css">
+<script src="assets/site.js" defer></script>
+<script src="assets/progress.js" defer></script>
+<script src="assets/assistant.js" defer></script>
+</head>
+<body class="progress-page">
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="site-header">
+<div class="wrap header-inner"><a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">港</span>港硕申请助手</a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button><nav class="site-nav" id="site-nav" aria-label="主导航"><a href="progress.html" aria-current="page">个人清单</a><a href="services.html">服务与范围</a><a href="guide.html">怎样开始</a><a href="consult.html#quick-check" class="nav-cta">免费定位卡点</a></nav></div>
+</header>
+<main id="main">
+<div class="wrap progress-wrap">
+<nav class="breadcrumb" aria-label="面包屑"><a href="index.html">首页</a><span aria-hidden="true">／</span><span>个人清单</span></nav>
+<header class="progress-intro"><p class="eyebrow">一个项目，逐项推进</p><h1>我的申请材料清单</h1><p class="progress-target">港中大 · 胃肠病学硕士 · 2027 入学</p><p class="progress-lead">记录你准备到哪一步，再找出下一件要做的事。</p></header>
+<section class="progress-local" aria-label="保存方式">
+<p>点击“建立我的清单”后，只在当前浏览器本地保存背景与状态；以后状态变化自动保存，刷新可恢复。不会上传证件、发送清单状态给 AI，也不跨设备同步。清除浏览器数据可能丢失记录。</p>
+<p id="save-status" class="save-status" role="status" aria-live="polite"></p>
+<div class="save-controls" id="save-controls" hidden><button type="button" class="text-link" id="retry-save" hidden>重试保存当前记录</button><button type="button" class="text-link" id="clear-progress" hidden>清除这份本地清单</button></div>
+</section>
+<details class="background-editor" id="background-editor" open>
+<summary id="background-summary-toggle">申请背景 <span id="background-summary">用于显示适用材料</span></summary>
+<form id="background-form" hidden>
+<div class="background-grid">
+<div><label for="award-region">学历授予地</label><select id="award-region" required><option value="unknown">待确认</option><option value="mainland">中国内地</option><option value="other">其他地区</option></select></div>
+<div><label for="graduation">毕业状态</label><select id="graduation" required><option value="unknown">待确认</option><option value="graduated">已毕业</option><option value="studying">在读</option></select></div>
+<div><label for="subject">专业（可选，最多 100 字）</label><input id="subject" type="text" maxlength="100" autocomplete="off" placeholder="例如：临床医学"></div>
+<div><label for="english-proof">英语证明</label><select id="english-proof" required><option value="preparing">准备中</option><option value="ready">已有证明</option><option value="exemption">拟用豁免，待核实</option></select></div>
+</div>
+<p class="form-note">背景只决定显示哪些任务，不自动判定资格或完成材料。修改背景会保留已有任务状态，暂不适用的条目仍保留历史。</p>
+<div class="actions"><button class="button" id="build-checklist" type="submit">建立我的清单 <span aria-hidden="true">↗</span></button></div>
+</form>
+</details>
+<noscript><p class="progress-noscript">建立、保存和恢复清单需要启用 JavaScript。你仍可在下方查看官方来源、申请日期与待核事项，或先看<a class="text-link" href="sample.html">材料卡点样例 ↗</a>。</p></noscript>
+<section id="checklist" aria-labelledby="checklist-title" hidden>
+<h2 id="checklist-title" class="progress-section-title">本人记录的进度</h2>
+<div class="progress-stats">
+<div><p>准备进度 <strong id="prepared-count"></strong></p><progress id="prepared-progress" value="0" max="1" aria-label="本人记录的准备进度"></progress><p class="stat-note">计入已准备、已提交和待学校确认。</p></div>
+<div><p>提交进度 <strong id="submitted-count"></strong></p><progress id="submitted-progress" value="0" max="1" aria-label="本人记录的提交进度"></progress><p class="stat-note">计入已提交和待学校确认。</p></div>
+</div>
+<p class="progress-boundary">这些都是你的记录。“已提交”不等于学校已收到，完成清单不代表录取。</p>
+<article class="next-step" id="next-step" aria-labelledby="next-title"><p class="eyebrow">接下来</p><h2 id="next-title" tabindex="-1"></h2><p id="next-description"></p><a id="next-link" class="text-link" href="#task-list">查看这项任务 <span aria-hidden="true">↓</span></a></article>
+<div id="date-notices" class="date-notices" aria-live="polite"></div>
+<section class="receipt-panel" aria-labelledby="receipt-title">
+<h2 id="receipt-title">学校是否确认申请收件？</h2>
+<div class="receipt-fields"><div><label for="application-receipt">申请收件记录</label><select id="application-receipt"><option value="unconfirmed">未取得正式确认</option><option value="confirmed">本人已取得正式确认</option></select></div><div><label for="receipt-date">正式通知日期（可选）</label><input id="receipt-date" type="date" disabled></div></div>
+<p>只记录你是否取得正式申请确认，不改变材料任务，也不代表每份材料或推荐报告已收齐。</p>
+</section>
+<section aria-labelledby="tasks-title"><div class="task-list-heading"><h2 id="tasks-title">材料待办</h2><span>每项状态由你修改</span></div><div class="task-list" id="task-list"></div></section>
+<details class="inactive-history" id="inactive-history" hidden><summary>暂不适用的条目 · 保留历史</summary><ul id="inactive-tasks"></ul><p>恢复相应背景后，这些条目会连同原状态再次显示。</p></details>
+</section>
+<section class="progress-reference" aria-labelledby="dates-title">
+<h2 id="dates-title">申请日期与核查记录</h2>
+<div class="deadline-grid"><p><span>网上申请截止</span><strong>2027-04-30</strong></p><p><span>推荐报告到项目办公室最迟日期</span><strong>2027-05-14</strong><small>由申请截止后两周计算；是办公室收件期限，不是只发送的日期。</small></p></div>
+<p>资料核查日期：<time datetime="2026-10-05">2026-10-05</time>。本次由本站人工整理公开官网读取结果，属于资料快照。每 10 天应重新核对；本页没有自动更新或后台监控，日期提示只在打开本站时显示。</p>
+<details class="pending-details"><summary>仍需项目确认的事项</summary><ul><li>网上申请后如何寄送项目办公室、各项材料实际提交阶段，以及通用上传流程与项目直送／密封流程怎样衔接。</li><li>在读申请是否接受、需何种学历或预计毕业证明。</li><li>英语豁免的证明与适用条件；推荐人的关系和职称，本次官网条款未明确。</li><li>开学日期尚未列入本清单，学历资格验证应在开学前至少一个月完成，具体日期需校方通知。</li></ul><p>核对联系：postgrad.gi@cuhk.edu.hk。可从下方官方联系页确认，邮件由你自行发送。</p></details>
+<details class="pending-details"><summary>如适用的其他材料</summary><p>其他学术或专业证明，以及 HKCAAVQ 学历评估，按项目通知确认是否适用；本清单不会将它们自动列为必交任务。</p></details>
+<div class="official-sources"><h3>官方来源</h3><p id="source-project"><a href="https://www.idd.cuhk.edu.hk/mscgi-application/" target="_blank" rel="noopener noreferrer">项目申请说明 ↗</a><span>项目页面明确 2027；本次核查 2026-10-05</span></p><p id="source-general"><a href="https://www.gs.cuhk.edu.hk/admissions/documents-required" target="_blank" rel="noopener noreferrer">研究生院通用材料要求 ↗</a><span>未单列适用入学年度；阶段与适用性仍按校方通知核对</span></p><p id="source-contact"><a href="https://www.gs.cuhk.edu.hk/programmes/medicine/msc-gastroenterology" target="_blank" rel="noopener noreferrer">研究生院项目与官方联系页 ↗</a><span>项目联系与 2027 申请截止；本次核查 2026-10-05</span></p></div>
+</section>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap footer-inner"><p class="footer-brand">港硕申请助手</p><p class="footer-state">个人清单 · 当前浏览器保存<br>港中大胃肠病学硕士 2027 · 官网资料快照 2026-10-05</p></div></footer>
+</body>
+</html>

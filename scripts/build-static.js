@@ -8,6 +8,7 @@ const files = [
   'sample-detail.html', 'guide.html',
   'assets/site.css', 'assets/site.js',
   'assets/assistant.css', 'assets/assistant.js',
+  'progress.html', 'assets/progress.css', 'assets/progress.js',
   '08_材料核对与行动清单_V2样例.md'
 ];
 
